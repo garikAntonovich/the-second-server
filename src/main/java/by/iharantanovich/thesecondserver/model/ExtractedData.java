@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExtractedData {
 
-    private Integer docNum;
+    private String docNum;
     private String docDate;
     private String docGUID;
     private String operType;
@@ -16,11 +16,11 @@ public class ExtractedData {
     private BankData bankRcp;
     private String purpose;
 
-    public Integer getDocNum() {
+    public String getDocNum() {
         return docNum;
     }
 
-    public void setDocNum(Integer docNum) {
+    public void setDocNum(String docNum) {
         this.docNum = docNum;
     }
 
