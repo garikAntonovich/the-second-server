@@ -1,5 +1,6 @@
 package by.iharantanovich.thesecondserver.controller;
 
+import by.iharantanovich.thesecondserver.model.ExtractedData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,8 +13,8 @@ import java.util.List;
 public class MyRestController {
 
     @PostMapping("/post")
-    public ResponseEntity<List<Object>> getData(@RequestBody List<Object> objectList) {
-        System.out.println(objectList);
-        return new ResponseEntity<>(objectList, HttpStatus.OK);
+    public ResponseEntity<List<ExtractedData>> getData(@RequestBody List<ExtractedData> extractedDataList) {
+        System.out.println(extractedDataList);
+        return new ResponseEntity<>(extractedDataList, HttpStatus.OK);
     }
 }
