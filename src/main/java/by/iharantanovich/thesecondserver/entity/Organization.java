@@ -9,10 +9,7 @@ public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
-
-    @Column(name = "CName_PAY")
-    private String cNamePay;
+    private long id;
 
     @Column(name = "INN_PAY")
     private String innPay;
@@ -20,37 +17,15 @@ public class Organization {
     @Column(name = "KPP_PAY")
     private String kppPay;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accounts_id")
-    private Account account;
+    @Column(name = "CName_PAY")
+    private String cnamePay;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "banks_id")
-    private Bank bank;
-
-    public Organization() {
-    }
-
-    public Organization(String cNamePay, String innPay, String kppPay) {
-        this.cNamePay = cNamePay;
-        this.innPay = innPay;
-        this.kppPay = kppPay;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public String getcNamePay() {
-        return cNamePay;
-    }
-
-    public void setcNamePay(String cNamePay) {
-        this.cNamePay = cNamePay;
     }
 
     public String getInnPay() {
@@ -69,19 +44,11 @@ public class Organization {
         this.kppPay = kppPay;
     }
 
-    public Account getAccount() {
-        return account;
+    public String getCnamePay() {
+        return cnamePay;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setCnamePay(String cnamePay) {
+        this.cnamePay = cnamePay;
     }
 }
