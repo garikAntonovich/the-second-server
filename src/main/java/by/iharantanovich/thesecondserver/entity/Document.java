@@ -8,39 +8,29 @@ public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
 
-    @Column(name = "DocNum")
     private String docNum;
-
-    @Column(name = "DocDate")
     private String docDate;
-
-    @Column(name = "DocGUID")
     private String docGUID;
-
-    @Column(name = "OperType")
     private String operType;
-
-    @Column(name = "AmountOut")
-    private double amountOut;
+    private Double amountOut;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payer_id")
-    private Organization payerId;
+    private Organization payer;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_id")
-    private Organization recipientId;
+    private Organization recipient;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payer_account_id")
-    private Account payerAccountId;
+    private Account payerAccount;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recipient_account_id")
-    private Account recipientAccountId;
+    private Account recipientAccount;
 
     public long getId() {
         return id;
@@ -90,35 +80,35 @@ public class Document {
         this.amountOut = amountOut;
     }
 
-    public Organization getPayerId() {
-        return payerId;
+    public Organization getPayer() {
+        return payer;
     }
 
-    public void setPayerId(Organization payerId) {
-        this.payerId = payerId;
+    public void setPayer(Organization payer) {
+        this.payer = payer;
     }
 
-    public Organization getRecipientId() {
-        return recipientId;
+    public Organization getRecipient() {
+        return recipient;
     }
 
-    public void setRecipientId(Organization recipientId) {
-        this.recipientId = recipientId;
+    public void setRecipient(Organization recipient) {
+        this.recipient = recipient;
     }
 
-    public Account getPayerAccountId() {
-        return payerAccountId;
+    public Account getPayerAccount() {
+        return payerAccount;
     }
 
-    public void setPayerAccountId(Account payerAccountId) {
-        this.payerAccountId = payerAccountId;
+    public void setPayerAccount(Account payerAccount) {
+        this.payerAccount = payerAccount;
     }
 
-    public Account getRecipientAccountId() {
-        return recipientAccountId;
+    public Account getRecipientAccount() {
+        return recipientAccount;
     }
 
-    public void setRecipientAccountId(Account recipientAccountId) {
-        this.recipientAccountId = recipientAccountId;
+    public void setRecipientAccount(Account recipientAccount) {
+        this.recipientAccount = recipientAccount;
     }
 }

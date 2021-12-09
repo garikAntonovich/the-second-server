@@ -8,16 +8,10 @@ public class Organization {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
 
-    @Column(name = "INN_PAY")
     private String innPay;
-
-    @Column(name = "KPP_PAY")
     private String kppPay;
-
-    @Column(name = "CName_PAY")
     private String cnamePay;
 
     public long getId() {

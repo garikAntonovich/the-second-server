@@ -8,22 +8,18 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
 
-    @Column(name = "BS_PAY")
     private String bsPay;
-
-    @Column(name = "BS_KS_PAY")
     private String bsKsPay;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bank_id")
-    private Bank bankId;
+    private Bank bank;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "organization_id")
-    private Organization organizationId;
+    private Organization organization;
 
     public long getId() {
         return id;
@@ -49,19 +45,19 @@ public class Account {
         this.bsKsPay = bsKsPay;
     }
 
-    public Bank getBankId() {
-        return bankId;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setBankId(Bank bankId) {
-        this.bankId = bankId;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
-    public Organization getOrganizationId() {
-        return organizationId;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setOrganizationId(Organization organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }
