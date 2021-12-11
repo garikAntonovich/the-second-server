@@ -10,16 +10,14 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 20, unique = true)
     private String bsPay;
+
+    @Column(length = 20, unique = true)
     private String bsKsPay;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bank_id")
     private Bank bank;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "organization_id")
-    private Organization organization;
 
     public long getId() {
         return id;
@@ -51,13 +49,5 @@ public class Account {
 
     public void setBank(Bank bank) {
         this.bank = bank;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
 }

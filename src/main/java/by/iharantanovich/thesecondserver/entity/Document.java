@@ -10,26 +10,29 @@ public class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 20)
     private String docNum;
+
     private String docDate;
+
+    @Column(length = 36)
     private String docGUID;
+
+    @Column(length = 2)
     private String operType;
+
     private Double amountOut;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payer_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Organization payer;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipient_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Organization recipient;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payer_account_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Account payerAccount;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipient_account_id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Account recipientAccount;
 
     public long getId() {

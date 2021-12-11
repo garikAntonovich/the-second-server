@@ -10,8 +10,13 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 20, unique = true)
     private String innPay;
+
+    @Column(length = 20, unique = true)
     private String kppPay;
+
+    @Column(unique = true)
     private String cnamePay;
 
     public long getId() {
