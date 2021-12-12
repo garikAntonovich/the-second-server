@@ -5,6 +5,7 @@ import by.iharantanovich.thesecondserver.entity.Bank;
 import by.iharantanovich.thesecondserver.entity.Document;
 import by.iharantanovich.thesecondserver.entity.Organization;
 import by.iharantanovich.thesecondserver.model.ExtractedData;
+import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.repository.AccountRepository;
 import by.iharantanovich.thesecondserver.repository.BankRepository;
 import by.iharantanovich.thesecondserver.repository.DocumentRepository;
@@ -90,5 +91,14 @@ public class DocumentServiceImpl implements DocumentService {
 
             documentRepository.save(document);
         }
+    }
+
+    @Override
+    public Statistic getStatistic() {
+        double averageAmount = 0;
+        for (Document document : documentRepository.findAll()) {
+            averageAmount += document.getAmountOut();
+        }
+        return new Statistic(documentRepository.findAll().size(), averageAmount / documentRepository.findAll().size());
     }
 }
