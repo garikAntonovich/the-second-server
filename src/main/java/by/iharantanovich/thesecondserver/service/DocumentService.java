@@ -4,7 +4,7 @@ import by.iharantanovich.thesecondserver.model.ExtractedData;
 
 import java.util.List;
 
-public interface MyService {
+public interface DocumentService {
 
-    void saveData(List<ExtractedData> extractedDataList);
+    void saveOrUpdate(List<ExtractedData> extractedDataList);
 }

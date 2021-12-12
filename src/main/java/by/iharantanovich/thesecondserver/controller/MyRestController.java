@@ -1,7 +1,7 @@
 package by.iharantanovich.thesecondserver.controller;
 
 import by.iharantanovich.thesecondserver.model.ExtractedData;
-import by.iharantanovich.thesecondserver.service.MyService;
+import by.iharantanovich.thesecondserver.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import java.util.List;
 public class MyRestController {
 
     @Autowired
-    private MyService myService;
+    private DocumentService documentService;
 
     @PostMapping("/transfer")
     public ResponseEntity<List<ExtractedData>> getData(@RequestBody List<ExtractedData> extractedDataList) {
-        myService.saveData(extractedDataList);
+        documentService.saveOrUpdate(extractedDataList);
         return new ResponseEntity<>(extractedDataList, HttpStatus.OK);
     }
 }
