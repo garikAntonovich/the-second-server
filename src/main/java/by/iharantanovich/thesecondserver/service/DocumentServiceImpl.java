@@ -1,5 +1,9 @@
 package by.iharantanovich.thesecondserver.service;
 
+import by.iharantanovich.thesecondserver.entity.Account;
+import by.iharantanovich.thesecondserver.entity.Bank;
+import by.iharantanovich.thesecondserver.entity.Document;
+import by.iharantanovich.thesecondserver.entity.Organization;
 import by.iharantanovich.thesecondserver.model.ExtractedData;
 import by.iharantanovich.thesecondserver.repository.AccountRepository;
 import by.iharantanovich.thesecondserver.repository.BankRepository;
@@ -32,6 +36,59 @@ public class DocumentServiceImpl implements DocumentService {
 
         for (ExtractedData extractedData : extractedDataList) {
 
+            Bank bankPayer = new Bank(extractedData.getBankPay().getBicPay());
+            Bank bankRecipient = new Bank((extractedData.getBankRcp().getBicPay()));
+            Account accountPayer = new Account(extractedData.getBankPay().getBsPay(), extractedData.getBankPay().getBsKsPay());
+            Account accountRecipient = new Account(extractedData.getBankRcp().getBsPay(), extractedData.getBankRcp().getBsKsPay());
+            Organization payer = new Organization(extractedData.getInfPay().getInnPay(), extractedData.getInfPay().getKppPay(), extractedData.getInfPay().getcNamePay());
+            Organization recipient = new Organization(extractedData.getInfRcp().getInnPay(), extractedData.getInfRcp().getKppPay(), extractedData.getInfRcp().getcNamePay());
+            Document document = new Document(extractedData.getDocNum(), extractedData.getDocDate(), extractedData.getDocGUID(), extractedData.getOperType(), extractedData.getAmountOut());
+
+            if (bankRepository.findByBicPay(bankPayer.getBicPay()) == null) {
+                payer.setBank(bankPayer);
+            } else {
+                payer.setBank(bankRepository.findByBicPay(bankPayer.getBicPay()));
+            }
+
+            if (bankRepository.findByBicPay(bankRecipient.getBicPay()) == null) {
+                recipient.setBank(bankRecipient);
+            } else {
+                recipient.setBank(bankRepository.findByBicPay(bankRecipient.getBicPay()));
+            }
+
+            if (accountRepository.findByBsPay(accountPayer.getBsPay()) == null) {
+                document.setPayerAccount(accountPayer);
+            } else {
+                document.setPayerAccount(accountRepository.findByBsPay(accountPayer.getBsPay()));
+            }
+
+            if (accountRepository.findByBsPay(accountRecipient.getBsPay()) == null) {
+                document.setRecipientAccount(accountRecipient);
+            } else {
+                document.setRecipientAccount(accountRepository.findByBsPay(accountRecipient.getBsPay()));
+            }
+
+            if (organizationRepository.findByInnPayAndKppPay(payer.getInnPay(), payer.getKppPay()) == null) {
+                if (organizationRepository.findByCnamePay(payer.getCnamePay()) == null) {
+                    document.setPayer(payer);
+                } else {
+                    document.setPayer(organizationRepository.findByCnamePay(payer.getCnamePay()));
+                }
+            } else {
+                document.setPayer(organizationRepository.findByInnPayAndKppPay(payer.getInnPay(), payer.getKppPay()));
+            }
+
+            if (organizationRepository.findByInnPayAndKppPay(recipient.getInnPay(), recipient.getKppPay()) == null) {
+                if (organizationRepository.findByCnamePay(recipient.getCnamePay()) == null) {
+                    document.setRecipient(recipient);
+                } else {
+                    document.setRecipient(organizationRepository.findByCnamePay(recipient.getCnamePay()));
+                }
+            } else {
+                document.setRecipient(organizationRepository.findByInnPayAndKppPay(recipient.getInnPay(), recipient.getKppPay()));
+            }
+
+            documentRepository.save(document);
         }
     }
 }
