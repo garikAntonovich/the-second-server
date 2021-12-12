@@ -10,8 +10,15 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String bicPay;
+
+    public Bank() {
+    }
+
+    public Bank(String bicPay) {
+        this.bicPay = bicPay;
+    }
 
     public long getId() {
         return id;

@@ -10,14 +10,20 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String bsPay;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String bsKsPay;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Bank bank;
+
+    public Account() {
+    }
+
+    public Account(String bsPay, String bsKsPay) {
+        this.bsPay = bsPay;
+        this.bsKsPay = bsKsPay;
+    }
 
     public long getId() {
         return id;
@@ -43,11 +49,4 @@ public class Account {
         this.bsKsPay = bsKsPay;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
 }

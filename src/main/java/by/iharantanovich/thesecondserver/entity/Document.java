@@ -35,6 +35,21 @@ public class Document {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Account recipientAccount;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    private Bank banks;
+
+    public Document() {
+    }
+
+    public Document(String docNum, String docDate, String docGUID, String operType, Double amountOut) {
+        this.docNum = docNum;
+        this.docDate = docDate;
+        this.docGUID = docGUID;
+        this.operType = operType;
+        this.amountOut = amountOut;
+
+    }
+
     public long getId() {
         return id;
     }
@@ -75,11 +90,11 @@ public class Document {
         this.operType = operType;
     }
 
-    public double getAmountOut() {
+    public Double getAmountOut() {
         return amountOut;
     }
 
-    public void setAmountOut(double amountOut) {
+    public void setAmountOut(Double amountOut) {
         this.amountOut = amountOut;
     }
 
@@ -113,5 +128,13 @@ public class Document {
 
     public void setRecipientAccount(Account recipientAccount) {
         this.recipientAccount = recipientAccount;
+    }
+
+    public Bank getBanks() {
+        return banks;
+    }
+
+    public void setBanks(Bank banks) {
+        this.banks = banks;
     }
 }

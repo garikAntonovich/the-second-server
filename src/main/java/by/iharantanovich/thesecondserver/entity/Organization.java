@@ -10,14 +10,22 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String innPay;
 
-    @Column(length = 20, unique = true)
+    @Column(length = 20)
     private String kppPay;
 
-    @Column(unique = true)
     private String cnamePay;
+
+    public Organization() {
+    }
+
+    public Organization(String innPay, String kppPay, String cnamePay) {
+        this.innPay = innPay;
+        this.kppPay = kppPay;
+        this.cnamePay = cnamePay;
+    }
 
     public long getId() {
         return id;
