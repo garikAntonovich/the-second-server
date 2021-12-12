@@ -18,6 +18,9 @@ public class Organization {
 
     private String cnamePay;
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    private Bank bank;
+
     public Organization() {
     }
 
@@ -57,5 +60,13 @@ public class Organization {
 
     public void setCnamePay(String cnamePay) {
         this.cnamePay = cnamePay;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 }

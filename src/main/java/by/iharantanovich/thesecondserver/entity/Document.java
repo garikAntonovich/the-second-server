@@ -35,9 +35,6 @@ public class Document {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
     private Account recipientAccount;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
-    private Bank banks;
-
     public Document() {
     }
 
@@ -128,13 +125,5 @@ public class Document {
 
     public void setRecipientAccount(Account recipientAccount) {
         this.recipientAccount = recipientAccount;
-    }
-
-    public Bank getBanks() {
-        return banks;
-    }
-
-    public void setBanks(Bank banks) {
-        this.banks = banks;
     }
 }
