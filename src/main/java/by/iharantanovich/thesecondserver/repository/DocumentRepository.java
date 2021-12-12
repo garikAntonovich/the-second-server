@@ -1,4 +1,4 @@
-package by.iharantanovich.thesecondserver.dao;
+package by.iharantanovich.thesecondserver.repository;
 
 import by.iharantanovich.thesecondserver.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
