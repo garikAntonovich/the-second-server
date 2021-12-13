@@ -16,7 +16,6 @@ public class Account {
     @Column(length = 20)
     private String bsKsPay;
 
-
     public Account() {
     }
 
@@ -48,5 +47,4 @@ public class Account {
     public void setBsKsPay(String bsKsPay) {
         this.bsKsPay = bsKsPay;
     }
-
 }

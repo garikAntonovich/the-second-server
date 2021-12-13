@@ -5,6 +5,7 @@ import by.iharantanovich.thesecondserver.entity.Bank;
 import by.iharantanovich.thesecondserver.entity.Document;
 import by.iharantanovich.thesecondserver.entity.Organization;
 import by.iharantanovich.thesecondserver.model.ExtractedData;
+import by.iharantanovich.thesecondserver.model.OrganizationData;
 import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.repository.AccountRepository;
 import by.iharantanovich.thesecondserver.repository.BankRepository;
@@ -13,7 +14,9 @@ import by.iharantanovich.thesecondserver.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -100,5 +103,28 @@ public class DocumentServiceImpl implements DocumentService {
             averageAmount += document.getAmountOut();
         }
         return new Statistic(documentRepository.findAll().size(), averageAmount / documentRepository.findAll().size());
+    }
+
+    @Override
+    public List<OrganizationData> getOrganizationData(String name) {
+
+        List<OrganizationData> organizationDataList = new ArrayList<>();
+        OrganizationData organizationData;
+        Optional<Organization> optionalOrganization;
+
+        for (long index = 0; index <= organizationRepository.findAll().size(); index++) {
+
+            organizationData = new OrganizationData();
+            optionalOrganization = organizationRepository.findById(index);
+
+            if (optionalOrganization.isPresent()) {
+                organizationData.setName(optionalOrganization.get().getCnamePay());
+                organizationData.setQuantityOfDocPayer(documentRepository.findAllByPayerId(index).size());
+                organizationData.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(index).size());
+                organizationDataList.add(organizationData);
+            }
+        }
+
+        return organizationDataList;
     }
 }

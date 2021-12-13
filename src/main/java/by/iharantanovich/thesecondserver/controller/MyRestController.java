@@ -1,6 +1,7 @@
 package by.iharantanovich.thesecondserver.controller;
 
 import by.iharantanovich.thesecondserver.model.ExtractedData;
+import by.iharantanovich.thesecondserver.model.OrganizationData;
 import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,13 @@ public class MyRestController {
         return new ResponseEntity<>(extractedDataList, HttpStatus.OK);
     }
 
-    @GetMapping("/stat")
+    @GetMapping("/statistic")
     public Statistic getStatistic() {
         return documentService.getStatistic();
+    }
+
+    @GetMapping("/organizations")
+    public List<OrganizationData> getOrganizationData(@PathVariable String name) {
+        return documentService.getOrganizationData(name);
     }
 }

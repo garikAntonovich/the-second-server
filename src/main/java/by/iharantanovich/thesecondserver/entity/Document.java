@@ -44,7 +44,6 @@ public class Document {
         this.docGUID = docGUID;
         this.operType = operType;
         this.amountOut = amountOut;
-
     }
 
     public long getId() {
