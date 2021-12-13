@@ -28,7 +28,8 @@ public class MyRestController {
         return documentService.getStatistic();
     }
 
-    @GetMapping("/organizations/{name}")
+    @GetMapping(value = { "/organizations", "/organizations/{name}" })
+    @ResponseBody
     public List<OrganizationData> getOrganizationData(@PathVariable(required = false) String name) {
         return documentService.getOrganizationData(name);
     }
