@@ -1,8 +1,5 @@
 package by.iharantanovich.thesecondserver.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ExtractedData {
 
     private String docNum;
