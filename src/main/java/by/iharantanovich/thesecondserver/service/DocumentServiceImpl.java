@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -42,11 +41,17 @@ public class DocumentServiceImpl implements DocumentService {
 
             Bank bankPayer = new Bank(extractedData.getBankPay().getBicPay());
             Bank bankRecipient = new Bank((extractedData.getBankRcp().getBicPay()));
+
             Account accountPayer = new Account(extractedData.getBankPay().getBsPay(), extractedData.getBankPay().getBsKsPay());
             Account accountRecipient = new Account(extractedData.getBankRcp().getBsPay(), extractedData.getBankRcp().getBsKsPay());
-            Organization payer = new Organization(extractedData.getInfPay().getInnPay(), extractedData.getInfPay().getKppPay(), extractedData.getInfPay().getcNamePay());
-            Organization recipient = new Organization(extractedData.getInfRcp().getInnPay(), extractedData.getInfRcp().getKppPay(), extractedData.getInfRcp().getcNamePay());
-            Document document = new Document(extractedData.getDocNum(), extractedData.getDocDate(), extractedData.getDocGUID(), extractedData.getOperType(), extractedData.getAmountOut());
+
+            Organization payer = new Organization(extractedData.getInfPay().getInnPay(), extractedData.getInfPay().getKppPay(),
+                    extractedData.getInfPay().getcNamePay());
+            Organization recipient = new Organization(extractedData.getInfRcp().getInnPay(), extractedData.getInfRcp().getKppPay(),
+                    extractedData.getInfRcp().getcNamePay());
+
+            Document document = new Document(extractedData.getDocNum(), extractedData.getDocDate(), extractedData.getDocGUID(),
+                    extractedData.getOperType(), extractedData.getAmountOut());
 
             if (bankRepository.findByBicPay(bankPayer.getBicPay()) == null) {
                 payer.setBank(bankPayer);
@@ -106,22 +111,30 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<OrganizationData> getOrganizationData(String name) {
+    public List<OrganizationData> getOrganizationData(String organizationName) {
 
         List<OrganizationData> organizationDataList = new ArrayList<>();
         OrganizationData organizationData;
-        Optional<Organization> optionalOrganization;
 
-        for (long index = 0; index <= organizationRepository.findAll().size(); index++) {
+        for (Organization organization : organizationRepository.findAll()) {
 
             organizationData = new OrganizationData();
-            optionalOrganization = organizationRepository.findById(index);
 
-            if (optionalOrganization.isPresent()) {
-                organizationData.setName(optionalOrganization.get().getCnamePay());
-                organizationData.setQuantityOfDocPayer(documentRepository.findAllByPayerId(index).size());
-                organizationData.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(index).size());
-                organizationDataList.add(organizationData);
+            if (organizationName != null) {
+                organizationData.setName(organizationRepository.findByCnamePay(organizationName).getCnamePay());
+            } else {
+                organizationData.setName(organization.getCnamePay());
+            }
+
+            organizationData.setQuantityOfDocPayer(documentRepository.findAllByPayerId(organizationRepository.
+                    findByCnamePay(organizationData.getName()).getId()).size());
+            organizationData.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(organizationRepository.
+                    findByCnamePay(organizationData.getName()).getId()).size());
+
+            organizationDataList.add(organizationData);
+
+            if (organizationName != null) {
+                break;
             }
         }
 
