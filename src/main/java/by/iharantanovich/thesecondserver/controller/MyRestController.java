@@ -28,8 +28,8 @@ public class MyRestController {
         return documentService.getStatistic();
     }
 
-    @GetMapping("/organizations")
-    public List<OrganizationData> getOrganizationData(@PathVariable String name) {
+    @GetMapping("/organizations/{name}")
+    public List<OrganizationData> getOrganizationData(@PathVariable(required = false) String name) {
         return documentService.getOrganizationData(name);
     }
 }
