@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
+    Document findByDocNum(String docNum);
+
     List<Document> findAllByPayerId(long id);
 
     List<Document> findAllByRecipientId(long id);

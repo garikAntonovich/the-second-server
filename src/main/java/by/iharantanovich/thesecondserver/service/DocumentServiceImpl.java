@@ -53,6 +53,10 @@ public class DocumentServiceImpl implements DocumentService {
             Document document = new Document(extractedData.getDocNum(), extractedData.getDocDate(), extractedData.getDocGUID(),
                     extractedData.getOperType(), extractedData.getAmountOut());
 
+            if (documentRepository.findByDocNum(document.getDocNum()) != null) {
+                document = documentRepository.findByDocNum(document.getDocNum());
+            }
+
             if (bankRepository.findByBicPay(bankPayer.getBicPay()) == null) {
                 payer.setBank(bankPayer);
             } else {
@@ -103,11 +107,11 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Statistic getStatistic() {
-        double averageAmount = 0;
+        double amount = 0;
         for (Document document : documentRepository.findAll()) {
-            averageAmount += document.getAmountOut();
+            amount += document.getAmountOut();
         }
-        return new Statistic(documentRepository.findAll().size(), averageAmount / documentRepository.findAll().size());
+        return new Statistic(documentRepository.findAll().size(), amount / documentRepository.findAll().size());
     }
 
     @Override
