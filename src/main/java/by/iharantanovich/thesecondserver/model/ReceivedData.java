@@ -1,6 +1,6 @@
 package by.iharantanovich.thesecondserver.model;
 
-public class ExtractedData {
+public class ReceivedData {
 
     private String docNum;
     private String docDate;
@@ -95,7 +95,7 @@ public class ExtractedData {
 
     @Override
     public String toString() {
-        return "ExtractedData{" +
+        return "ReceivedData{" +
                 "docNum=" + docNum +
                 ", docDate='" + docDate + '\'' +
                 ", docGUID='" + docGUID + '\'' +

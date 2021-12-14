@@ -1,6 +1,6 @@
 package by.iharantanovich.thesecondserver.controller;
 
-import by.iharantanovich.thesecondserver.model.ExtractedData;
+import by.iharantanovich.thesecondserver.model.ReceivedData;
 import by.iharantanovich.thesecondserver.model.OrganizationData;
 import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.service.DocumentService;
@@ -18,7 +18,7 @@ public class MyRestController {
     private DocumentService documentService;
 
     @PostMapping("/transfer")
-    public ResponseEntity<List<ExtractedData>> getData(@RequestBody List<ExtractedData> extractedDataList) {
+    public ResponseEntity<List<ReceivedData>> getData(@RequestBody List<ReceivedData> extractedDataList) {
         documentService.saveOrUpdate(extractedDataList);
         return new ResponseEntity<>(extractedDataList, HttpStatus.OK);
     }

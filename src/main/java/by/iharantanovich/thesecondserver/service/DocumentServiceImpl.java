@@ -4,7 +4,7 @@ import by.iharantanovich.thesecondserver.entity.Account;
 import by.iharantanovich.thesecondserver.entity.Bank;
 import by.iharantanovich.thesecondserver.entity.Document;
 import by.iharantanovich.thesecondserver.entity.Organization;
-import by.iharantanovich.thesecondserver.model.ExtractedData;
+import by.iharantanovich.thesecondserver.model.ReceivedData;
 import by.iharantanovich.thesecondserver.model.OrganizationData;
 import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.repository.AccountRepository;
@@ -35,23 +35,23 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public void saveOrUpdate(List<ExtractedData> extractedDataList) {
+    public void saveOrUpdate(List<ReceivedData> receivedDataList) {
 
-        for (ExtractedData extractedData : extractedDataList) {
+        for (ReceivedData receivedData : receivedDataList) {
 
-            Bank bankPayer = new Bank(extractedData.getBankPay().getBicPay());
-            Bank bankRecipient = new Bank((extractedData.getBankRcp().getBicPay()));
+            Bank bankPayer = new Bank(receivedData.getBankPay().getBicPay());
+            Bank bankRecipient = new Bank((receivedData.getBankRcp().getBicPay()));
 
-            Account accountPayer = new Account(extractedData.getBankPay().getBsPay(), extractedData.getBankPay().getBsKsPay());
-            Account accountRecipient = new Account(extractedData.getBankRcp().getBsPay(), extractedData.getBankRcp().getBsKsPay());
+            Account accountPayer = new Account(receivedData.getBankPay().getBsPay(), receivedData.getBankPay().getBsKsPay());
+            Account accountRecipient = new Account(receivedData.getBankRcp().getBsPay(), receivedData.getBankRcp().getBsKsPay());
 
-            Organization payer = new Organization(extractedData.getInfPay().getInnPay(), extractedData.getInfPay().getKppPay(),
-                    extractedData.getInfPay().getcNamePay());
-            Organization recipient = new Organization(extractedData.getInfRcp().getInnPay(), extractedData.getInfRcp().getKppPay(),
-                    extractedData.getInfRcp().getcNamePay());
+            Organization payer = new Organization(receivedData.getInfPay().getInnPay(), receivedData.getInfPay().getKppPay(),
+                    receivedData.getInfPay().getcNamePay());
+            Organization recipient = new Organization(receivedData.getInfRcp().getInnPay(), receivedData.getInfRcp().getKppPay(),
+                    receivedData.getInfRcp().getcNamePay());
 
-            Document document = new Document(extractedData.getDocNum(), extractedData.getDocDate(), extractedData.getDocGUID(),
-                    extractedData.getOperType(), extractedData.getAmountOut());
+            Document document = new Document(receivedData.getDocNum(), receivedData.getDocDate(), receivedData.getDocGUID(),
+                    receivedData.getOperType(), receivedData.getAmountOut());
 
             if (documentRepository.findByDocNum(document.getDocNum()) != null) {
                 document = documentRepository.findByDocNum(document.getDocNum());
