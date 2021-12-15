@@ -4,16 +4,23 @@ import by.iharantanovich.thesecondserver.entity.Account;
 import by.iharantanovich.thesecondserver.entity.Bank;
 import by.iharantanovich.thesecondserver.entity.Document;
 import by.iharantanovich.thesecondserver.entity.Organization;
-import by.iharantanovich.thesecondserver.model.ReceivedData;
 import by.iharantanovich.thesecondserver.model.OrganizationData;
+import by.iharantanovich.thesecondserver.model.ReceivedData;
 import by.iharantanovich.thesecondserver.model.Statistic;
 import by.iharantanovich.thesecondserver.repository.AccountRepository;
 import by.iharantanovich.thesecondserver.repository.BankRepository;
 import by.iharantanovich.thesecondserver.repository.DocumentRepository;
 import by.iharantanovich.thesecondserver.repository.OrganizationRepository;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,5 +150,46 @@ public class DocumentServiceImpl implements DocumentService {
         }
 
         return organizationDataList;
+    }
+
+    @Override
+    public void createAndWriteExcel() {
+
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet("Documents");
+
+        int rownum = 0;
+        Row row = sheet.createRow(rownum);
+
+        row.createCell(0, CellType.STRING).setCellValue("Номер документа");
+        row.createCell(1, CellType.STRING).setCellValue("Дата документа");
+        row.createCell(2, CellType.STRING).setCellValue("Сумма документа");
+        row.createCell(3, CellType.STRING).setCellValue("Наименование плательщика");
+        row.createCell(4, CellType.STRING).setCellValue("БИК банка плательщика");
+        row.createCell(5, CellType.STRING).setCellValue("Наименование получателя");
+        row.createCell(6, CellType.STRING).setCellValue("БИК банка получателя");
+
+        for (int index = 0; index < documentRepository.findAll().size(); index++) {
+            rownum++;
+            row = sheet.createRow(rownum);
+            row.createCell(0, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getDocNum());
+            row.createCell(1, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getDocDate());
+            row.createCell(2, CellType.NUMERIC).setCellValue(documentRepository.findAll().get(index).getAmountOut());
+            row.createCell(3, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getPayer().getCnamePay());
+            row.createCell(4, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getPayer().getBank().getBicPay());
+            row.createCell(5, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getRecipient().getCnamePay());
+            row.createCell(6, CellType.STRING).setCellValue(documentRepository.findAll().get(index).getRecipient().getBank().getBicPay());
+        }
+
+        File file = new File("C:/workspace/the-second-server/src/main/resources/documents.xlsx");
+        file.getParentFile().mkdirs();
+
+        try {
+            workbook.write(new FileOutputStream(file));
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

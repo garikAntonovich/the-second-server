@@ -20,6 +20,7 @@ public class MyRestController {
     @PostMapping("/transfer")
     public ResponseEntity<List<ReceivedData>> getData(@RequestBody List<ReceivedData> extractedDataList) {
         documentService.saveOrUpdate(extractedDataList);
+        documentService.createAndWriteExcel();
         return new ResponseEntity<>(extractedDataList, HttpStatus.OK);
     }
 

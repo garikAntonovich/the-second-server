@@ -13,4 +13,6 @@ public interface DocumentService {
     Statistic getStatistic();
 
     List<OrganizationData> getOrganizationData(String organizationName);
+
+    void createAndWriteExcel();
 }
