@@ -1,10 +1,16 @@
 package by.iharantanovich.thesecondserver.service;
 
-import by.iharantanovich.thesecondserver.entity.*;
-import by.iharantanovich.thesecondserver.repository.*;
+import by.iharantanovich.thesecondserver.entity.Account;
+import by.iharantanovich.thesecondserver.entity.Bank;
+import by.iharantanovich.thesecondserver.entity.Document;
+import by.iharantanovich.thesecondserver.entity.Organization;
+import by.iharantanovich.thesecondserver.model.DocumentStaticstics;
 import by.iharantanovich.thesecondserver.model.OrganizationStatistics;
 import by.iharantanovich.thesecondserver.model.ReceivedData;
-import by.iharantanovich.thesecondserver.model.DocumentStaticstics;
+import by.iharantanovich.thesecondserver.repository.AccountRepository;
+import by.iharantanovich.thesecondserver.repository.BankRepository;
+import by.iharantanovich.thesecondserver.repository.DocumentRepository;
+import by.iharantanovich.thesecondserver.repository.OrganizationRepository;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -125,24 +131,21 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<OrganizationStatistics> getOrganizationStatistics(String organizationName) {
 
-        List<OrganizationStatistics> organizationStatisticsList = new ArrayList<>();
         OrganizationStatistics organizationStatistics;
+        List<OrganizationStatistics> organizationStatisticsList = new ArrayList<>();
+        List<Organization> organizationList = organizationRepository.findAll();
 
-        for (Organization organization : organizationRepository.findAll()) {
-
-            organizationStatistics = new OrganizationStatistics();
+        for (Organization organization : organizationList) {
+            String name = organization.getCnamePay();
 
             if (organizationName != null) {
-                organizationStatistics.setName(organizationRepository.findByCnamePay(organizationName).getCnamePay());
-            } else {
-                organizationStatistics.setName(organization.getCnamePay());
+                if (!name.equals(organizationName))
+                    continue;
             }
 
-            organizationStatistics.setQuantityOfDocPayer(documentRepository.findAllByPayerId(organizationRepository.
-                    findByCnamePay(organizationStatistics.getName()).getId()).size());
-            organizationStatistics.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(organizationRepository.
-                    findByCnamePay(organizationStatistics.getName()).getId()).size());
-
+            int quantityOfDocPayer = documentRepository.findAllByPayerId(organization.getId()).size();
+            int quantityOfDocRecipient = documentRepository.findAllByRecipientId(organization.getId()).size();
+            organizationStatistics = new OrganizationStatistics(name, quantityOfDocPayer, quantityOfDocRecipient);
             organizationStatisticsList.add(organizationStatistics);
 
             if (organizationName != null) {

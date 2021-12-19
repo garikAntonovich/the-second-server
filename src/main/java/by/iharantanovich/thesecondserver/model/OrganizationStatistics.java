@@ -6,9 +6,6 @@ public class OrganizationStatistics {
     private int quantityOfDocPayer;
     private int quantityOfDocRecipient;
 
-    public OrganizationStatistics() {
-    }
-
     public OrganizationStatistics(String name, int quantityOfDocPayer, int quantityOfDocRecipient) {
         this.name = name;
         this.quantityOfDocPayer = quantityOfDocPayer;
@@ -19,23 +16,11 @@ public class OrganizationStatistics {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getQuantityOfDocPayer() {
+    public int getQuantityOfDocPayer() {
         return quantityOfDocPayer;
     }
 
-    public void setQuantityOfDocPayer(Integer quantityOfDocPayer) {
-        this.quantityOfDocPayer = quantityOfDocPayer;
-    }
-
-    public Integer getQuantityOfDocRecipient() {
+    public int getQuantityOfDocRecipient() {
         return quantityOfDocRecipient;
-    }
-
-    public void setQuantityOfDocRecipient(Integer quantityOfDocRecipient) {
-        this.quantityOfDocRecipient = quantityOfDocRecipient;
     }
 }
