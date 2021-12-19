@@ -1,6 +1,6 @@
 package by.iharantanovich.thesecondserver.model;
 
-public class BankData {
+public class ReceivedBankData {
 
     private String bsPay;
     private String bicPay;
@@ -32,7 +32,7 @@ public class BankData {
 
     @Override
     public String toString() {
-        return "BankData{" +
+        return "ReceivedBankData{" +
                 "bsPay='" + bsPay + '\'' +
                 ", bicPay='" + bicPay + '\'' +
                 ", bsKsPay='" + bsKsPay + '\'' +

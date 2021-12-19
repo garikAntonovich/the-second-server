@@ -1,14 +1,14 @@
 package by.iharantanovich.thesecondserver.model;
 
-public class Statistic {
+public class DocumentStaticstics {
 
     private Integer quantityOfDocuments;
     private Double averageAmount;
 
-    public Statistic() {
+    public DocumentStaticstics() {
     }
 
-    public Statistic(Integer quantityOfDocuments, Double averageAmount) {
+    public DocumentStaticstics(Integer quantityOfDocuments, Double averageAmount) {
         this.quantityOfDocuments = quantityOfDocuments;
         this.averageAmount = averageAmount;
     }

@@ -7,10 +7,10 @@ public class ReceivedData {
     private String docGUID;
     private String operType;
     private Double amountOut;
-    private InfData infPay;
-    private BankData bankPay;
-    private InfData infRcp;
-    private BankData bankRcp;
+    private ReceivedInfData infPay;
+    private ReceivedBankData bankPay;
+    private ReceivedInfData infRcp;
+    private ReceivedBankData bankRcp;
     private String purpose;
 
     public String getDocNum() {
@@ -53,35 +53,35 @@ public class ReceivedData {
         this.amountOut = amountOut;
     }
 
-    public InfData getInfPay() {
+    public ReceivedInfData getInfPay() {
         return infPay;
     }
 
-    public void setInfPay(InfData infPay) {
+    public void setInfPay(ReceivedInfData infPay) {
         this.infPay = infPay;
     }
 
-    public BankData getBankPay() {
+    public ReceivedBankData getBankPay() {
         return bankPay;
     }
 
-    public void setBankPay(BankData bankPay) {
+    public void setBankPay(ReceivedBankData bankPay) {
         this.bankPay = bankPay;
     }
 
-    public InfData getInfRcp() {
+    public ReceivedInfData getInfRcp() {
         return infRcp;
     }
 
-    public void setInfRcp(InfData infRcp) {
+    public void setInfRcp(ReceivedInfData infRcp) {
         this.infRcp = infRcp;
     }
 
-    public BankData getBankRcp() {
+    public ReceivedBankData getBankRcp() {
         return bankRcp;
     }
 
-    public void setBankRcp(BankData bankRcp) {
+    public void setBankRcp(ReceivedBankData bankRcp) {
         this.bankRcp = bankRcp;
     }
 

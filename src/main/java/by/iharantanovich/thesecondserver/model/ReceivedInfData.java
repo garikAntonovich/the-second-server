@@ -1,6 +1,6 @@
 package by.iharantanovich.thesecondserver.model;
 
-public class InfData {
+public class ReceivedInfData {
 
     private String innPay;
     private String kppPay;
@@ -32,7 +32,7 @@ public class InfData {
 
     @Override
     public String toString() {
-        return "InfData{" +
+        return "ReceivedInfData{" +
                 "innPay='" + innPay + '\'' +
                 ", kppPay='" + kppPay + '\'' +
                 ", cNamePay='" + cNamePay + '\'' +

@@ -1,15 +1,15 @@
 package by.iharantanovich.thesecondserver.model;
 
-public class OrganizationData {
+public class OrganizationStatistics {
 
     private String name;
     private Integer quantityOfDocPayer;
     private Integer quantityOfDocRecipient;
 
-    public OrganizationData() {
+    public OrganizationStatistics() {
     }
 
-    public OrganizationData(String name, Integer quantityOfDocPayer, Integer quantityOfDocRecipient) {
+    public OrganizationStatistics(String name, Integer quantityOfDocPayer, Integer quantityOfDocRecipient) {
         this.name = name;
         this.quantityOfDocPayer = quantityOfDocPayer;
         this.quantityOfDocRecipient = quantityOfDocRecipient;
