@@ -1,16 +1,10 @@
 package by.iharantanovich.thesecondserver.service;
 
-import by.iharantanovich.thesecondserver.entity.Account;
-import by.iharantanovich.thesecondserver.entity.Bank;
-import by.iharantanovich.thesecondserver.entity.Document;
-import by.iharantanovich.thesecondserver.entity.Organization;
-import by.iharantanovich.thesecondserver.model.OrganizationData;
+import by.iharantanovich.thesecondserver.entity.*;
+import by.iharantanovich.thesecondserver.repository.*;
+import by.iharantanovich.thesecondserver.model.OrganizationStatistics;
 import by.iharantanovich.thesecondserver.model.ReceivedData;
-import by.iharantanovich.thesecondserver.model.Statistic;
-import by.iharantanovich.thesecondserver.repository.AccountRepository;
-import by.iharantanovich.thesecondserver.repository.BankRepository;
-import by.iharantanovich.thesecondserver.repository.DocumentRepository;
-import by.iharantanovich.thesecondserver.repository.OrganizationRepository;
+import by.iharantanovich.thesecondserver.model.DocumentStaticstics;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -113,49 +107,54 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Statistic getStatistic() {
+    public DocumentStaticstics getDocumentStatistics() {
+
         List<Document> documents = documentRepository.findAll();
-        int quantityOfDocuments = documents.size();
+
         double amount = 0;
         for (Document document : documents) {
             amount += document.getAmountOut();
         }
-        return new Statistic(quantityOfDocuments, amount / quantityOfDocuments);
+
+        int quantityOfDocuments = documents.size();
+        double averageAmount = amount / quantityOfDocuments;
+
+        return new DocumentStaticstics(quantityOfDocuments, averageAmount);
     }
 
     @Override
-    public List<OrganizationData> getOrganizationData(String organizationName) {
+    public List<OrganizationStatistics> getOrganizationStatistics(String organizationName) {
 
-        List<OrganizationData> organizationDataList = new ArrayList<>();
-        OrganizationData organizationData;
+        List<OrganizationStatistics> organizationStatisticsList = new ArrayList<>();
+        OrganizationStatistics organizationStatistics;
 
         for (Organization organization : organizationRepository.findAll()) {
 
-            organizationData = new OrganizationData();
+            organizationStatistics = new OrganizationStatistics();
 
             if (organizationName != null) {
-                organizationData.setName(organizationRepository.findByCnamePay(organizationName).getCnamePay());
+                organizationStatistics.setName(organizationRepository.findByCnamePay(organizationName).getCnamePay());
             } else {
-                organizationData.setName(organization.getCnamePay());
+                organizationStatistics.setName(organization.getCnamePay());
             }
 
-            organizationData.setQuantityOfDocPayer(documentRepository.findAllByPayerId(organizationRepository.
-                    findByCnamePay(organizationData.getName()).getId()).size());
-            organizationData.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(organizationRepository.
-                    findByCnamePay(organizationData.getName()).getId()).size());
+            organizationStatistics.setQuantityOfDocPayer(documentRepository.findAllByPayerId(organizationRepository.
+                    findByCnamePay(organizationStatistics.getName()).getId()).size());
+            organizationStatistics.setQuantityOfDocRecipient(documentRepository.findAllByRecipientId(organizationRepository.
+                    findByCnamePay(organizationStatistics.getName()).getId()).size());
 
-            organizationDataList.add(organizationData);
+            organizationStatisticsList.add(organizationStatistics);
 
             if (organizationName != null) {
                 break;
             }
         }
 
-        return organizationDataList;
+        return organizationStatisticsList;
     }
 
     @Override
-    public void createAndWriteExcel() {
+    public void writeExcel() {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("Documents");
@@ -192,6 +191,5 @@ public class DocumentServiceImpl implements DocumentService {
                 IOException e) {
             e.printStackTrace();
         }
-
     }
 }
