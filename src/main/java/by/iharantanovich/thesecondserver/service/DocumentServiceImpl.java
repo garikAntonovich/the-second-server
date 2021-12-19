@@ -114,11 +114,13 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Statistic getStatistic() {
+        List<Document> documents = documentRepository.findAll();
+        int quantityOfDocuments = documents.size();
         double amount = 0;
-        for (Document document : documentRepository.findAll()) {
+        for (Document document : documents) {
             amount += document.getAmountOut();
         }
-        return new Statistic(documentRepository.findAll().size(), amount / documentRepository.findAll().size());
+        return new Statistic(quantityOfDocuments, amount / quantityOfDocuments);
     }
 
     @Override
