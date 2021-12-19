@@ -4,38 +4,17 @@ public class ReceivedInfData {
 
     private String innPay;
     private String kppPay;
-    private String cNamePay;
+    private String cnamePay;
 
     public String getInnPay() {
         return innPay;
-    }
-
-    public void setInnPay(String innPay) {
-        this.innPay = innPay;
     }
 
     public String getKppPay() {
         return kppPay;
     }
 
-    public void setKppPay(String kppPay) {
-        this.kppPay = kppPay;
-    }
-
-    public String getcNamePay() {
-        return cNamePay;
-    }
-
-    public void setcNamePay(String cNamePay) {
-        this.cNamePay = cNamePay;
-    }
-
-    @Override
-    public String toString() {
-        return "ReceivedInfData{" +
-                "innPay='" + innPay + '\'' +
-                ", kppPay='" + kppPay + '\'' +
-                ", cNamePay='" + cNamePay + '\'' +
-                '}';
+    public String getCnamePay() {
+        return cnamePay;
     }
 }

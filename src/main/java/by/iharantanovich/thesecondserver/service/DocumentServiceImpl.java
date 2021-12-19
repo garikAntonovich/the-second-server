@@ -47,9 +47,9 @@ public class DocumentServiceImpl implements DocumentService {
             Account accountRecipient = new Account(receivedData.getBankRcp().getBsPay(), receivedData.getBankRcp().getBsKsPay());
 
             Organization payer = new Organization(receivedData.getInfPay().getInnPay(), receivedData.getInfPay().getKppPay(),
-                    receivedData.getInfPay().getcNamePay());
+                    receivedData.getInfPay().getCnamePay());
             Organization recipient = new Organization(receivedData.getInfRcp().getInnPay(), receivedData.getInfRcp().getKppPay(),
-                    receivedData.getInfRcp().getcNamePay());
+                    receivedData.getInfRcp().getCnamePay());
 
             Document document = new Document(receivedData.getDocNum(), receivedData.getDocDate(), receivedData.getDocGUID(),
                     receivedData.getOperType(), receivedData.getAmountOut());

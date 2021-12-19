@@ -10,32 +10,11 @@ public class ReceivedBankData {
         return bsPay;
     }
 
-    public void setBsPay(String bsPay) {
-        this.bsPay = bsPay;
-    }
-
     public String getBicPay() {
         return bicPay;
     }
 
-    public void setBicPay(String bicPay) {
-        this.bicPay = bicPay;
-    }
-
     public String getBsKsPay() {
         return bsKsPay;
-    }
-
-    public void setBsKsPay(String bsKsPay) {
-        this.bsKsPay = bsKsPay;
-    }
-
-    @Override
-    public String toString() {
-        return "ReceivedBankData{" +
-                "bsPay='" + bsPay + '\'' +
-                ", bicPay='" + bicPay + '\'' +
-                ", bsKsPay='" + bsKsPay + '\'' +
-                '}';
     }
 }

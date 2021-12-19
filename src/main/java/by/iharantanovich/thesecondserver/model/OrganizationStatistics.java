@@ -3,13 +3,13 @@ package by.iharantanovich.thesecondserver.model;
 public class OrganizationStatistics {
 
     private String name;
-    private Integer quantityOfDocPayer;
-    private Integer quantityOfDocRecipient;
+    private int quantityOfDocPayer;
+    private int quantityOfDocRecipient;
 
     public OrganizationStatistics() {
     }
 
-    public OrganizationStatistics(String name, Integer quantityOfDocPayer, Integer quantityOfDocRecipient) {
+    public OrganizationStatistics(String name, int quantityOfDocPayer, int quantityOfDocRecipient) {
         this.name = name;
         this.quantityOfDocPayer = quantityOfDocPayer;
         this.quantityOfDocRecipient = quantityOfDocRecipient;

@@ -2,30 +2,19 @@ package by.iharantanovich.thesecondserver.model;
 
 public class DocumentStaticstics {
 
-    private Integer quantityOfDocuments;
-    private Double averageAmount;
+    private int quantityOfDocuments;
+    private double averageAmount;
 
-    public DocumentStaticstics() {
-    }
-
-    public DocumentStaticstics(Integer quantityOfDocuments, Double averageAmount) {
+    public DocumentStaticstics(int quantityOfDocuments, double averageAmount) {
         this.quantityOfDocuments = quantityOfDocuments;
         this.averageAmount = averageAmount;
     }
 
-    public Integer getQuantityOfDocuments() {
+    public int getQuantityOfDocuments() {
         return quantityOfDocuments;
     }
 
-    public void setQuantityOfDocuments(Integer quantityOfDocuments) {
-        this.quantityOfDocuments = quantityOfDocuments;
-    }
-
-    public Double getAverageAmount() {
+    public double getAverageAmount() {
         return averageAmount;
-    }
-
-    public void setAverageAmount(Double averageAmount) {
-        this.averageAmount = averageAmount;
     }
 }
